@@ -1,17 +1,17 @@
 
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deposit, withdraw } from '../store/moneySlice' 
 
 const Wallet = () => {
   const money = useSelector(state => state.money.amount)
-  const [amount, setAmount] = useState(0);
+  const dispatch = useDispatch() 
 
   function handleDeposit() {
-    setAmount(amount + 10)
+    dispatch(deposit()) // dispatch({ type: 'money/deposit' }) 
   }
 
   function handleWithdraw() {
-    setAmount(amount - 10)
+    dispatch(withdraw())
   }
 
   return (

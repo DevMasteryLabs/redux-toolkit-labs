@@ -1,26 +1,27 @@
 import { useState } from "react";
-import { useSelector } from "react-redux"; 
+import { useSelector, useDispatch } from "react-redux";
+import { addSong, removeSong, removeAll } from '../store/songsSlice'
 
 const Playlist = () => {
   const songsFromStore = useSelector((state) => state.songs.list);
-  const [songs, setSongs] = useState(["Take Five", "Claire de Lune"]);
+  const dispatch = useDispatch() 
   const [songTitle, setSongTitle] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
     const title = songTitle.trim()
     if (title !== "") {
-      setSongs([...songs, title]);
+      dispatch(addSong(title)); // dispatch({ type: "songs/addSong", payload: "Despacito" }) 
       setSongTitle("");
     }
   }
 
   function handleRemove(songIndex) {
-    setSongs(songs.filter((song, i) => i !== songIndex));
+    dispatch(removeSong(songIndex)); 
   }
 
   function handleRemoveAll() {
-    setSongs([]);
+    dispatch(removeAll());
   }
 
   return (
