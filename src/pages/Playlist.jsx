@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useSelector } from "react-redux"; 
 
 const Playlist = () => {
+  const songsFromStore = useSelector((state) => state.songs.list);
   const [songs, setSongs] = useState(["Take Five", "Claire de Lune"]);
   const [songTitle, setSongTitle] = useState("");
 
@@ -45,7 +47,7 @@ const Playlist = () => {
         <div className="col-md-6">
           <ul className="list-group mt-5">
             {
-              songs.map((song, index) => (
+              songsFromStore.map((song, index) => (
                 <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                   <span>{song}</span>
                   <button className="btn btn-outline-danger" onClick={() => handleRemove(index)}>Remove</button>
@@ -55,7 +57,7 @@ const Playlist = () => {
           </ul>
 
           {
-            songs.length > 0 && <button className="btn btn-danger my-2" onClick={handleRemoveAll}>Remove All</button>
+            songsFromStore.length > 0 && <button className="btn btn-danger my-2" onClick={handleRemoveAll}>Remove All</button>
           }
         </div>
 
